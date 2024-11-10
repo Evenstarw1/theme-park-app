@@ -1,0 +1,7 @@
+<app-header (sidenavToggle)="toggleSidenav()"></app-header>
+
+<app-sidenav [sidenavOpen]="sidenavOpen" (sidenavClosed)="onSidenavClosed()"></app-sidenav>
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>

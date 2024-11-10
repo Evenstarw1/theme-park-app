@@ -1,0 +1,30 @@
+
+mat-sidenav {
+    width: 250px;
+    background-color: rgba(91, 121, 205, 1);
+    position: fixed;  /* Mantener el sidenav fijo */
+    z-index: 10;      /* Asegura que el sidenav esté por encima del contenido */
+    height: 100%;     /* Hace que el sidenav ocupe toda la altura de la ventana */
+    padding-top: 120px;
+}
+
+mat-sidenav-backdrop {
+    display: block; /* Se muestra el fondo oscuro */
+  }
+  ul {
+    list-style-type: none;
+  }
+  
+  li {
+    margin-bottom: 20px;
+  }
+
+  mat-sidenav-container .mat-sidenav-content {
+    z-index: 1;  /* Hace que el contenido esté debajo del sidenav */
+  }
+
+  mat-sidenav-container {
+    position: relative;
+    overflow: hidden;
+  }
+
