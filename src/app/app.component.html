@@ -1,7 +1,10 @@
 <app-header (sidenavToggle)="toggleSidenav()"></app-header>
-
-<app-sidenav [sidenavOpen]="sidenavOpen" (sidenavClosed)="onSidenavClosed()"></app-sidenav>
-
-<router-outlet></router-outlet>
+<!-- <div class="loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div> -->
+<div class="content-wrapper">
+    <app-sidenav [sidenavOpen]="sidenavOpen" (sidenavClosed)="onSidenavClosed()"></app-sidenav>
+    <router-outlet></router-outlet>
+</div>
 
 <app-footer></app-footer>

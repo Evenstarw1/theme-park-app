@@ -48,6 +48,7 @@ export class RegisterComponent implements OnInit {
     'emociones fuertes',
     'acuatico'
   ];
+  //Llamar endpoint categories para rellenar el array.
 
   get categoriesDisplayText(): string {
     const selectedCategories = this.categories.value || [];

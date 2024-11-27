@@ -1,0 +1,40 @@
+@import '../../../../variables.scss';
+@import '../../../../mediaqueries.scss';
+
+.footer {
+    background-color: $blue-primary-color;
+    padding-top: 2rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-bottom: 1rem;
+    z-index: 10;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @include for-mobile {
+      flex-direction: column;
+      gap: 3rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+    &__social_icons {
+      list-style-type: none;
+      display: flex;
+      flex-direction: row;
+      font-size: 28px;
+      padding-top: 0.5rem;
+    }
+    &__social_link {
+      padding-right: 1rem;
+
+      a {
+        color: white;
+      }
+    }
+    &__copy {
+      line-height: 1.5rem;
+    }
+  }
+  

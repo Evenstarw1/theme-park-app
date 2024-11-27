@@ -3,14 +3,13 @@ import { ValidatorFn, ValidationErrors, AbstractControl, FormGroup } from '@angu
 export class CustomValidators {
   static match(controlName: string, matchingControlName: string, errorName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const formGroup = control as FormGroup; // Convertimos el control en un FormGroup
+      const formGroup = control as FormGroup;
 
       if (!(formGroup instanceof FormGroup)) {
-        // Si no es un FormGroup, retornamos null
         return null;
       }
 
-      const firstControl = formGroup.get(controlName);  // Renombramos para evitar duplicidad de 'control'
+      const firstControl = formGroup.get(controlName);
       const secondControl = formGroup.get(matchingControlName);
 
       if (secondControl?.errors && !secondControl.errors[errorName]) {

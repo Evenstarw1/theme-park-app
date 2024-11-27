@@ -1,0 +1,92 @@
+@import '../../../../mediaqueries.scss';
+
+.body-container{
+    padding-top: 120px;
+}
+
+.register-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 120px;
+}
+
+.form-container {
+    background-color: rgba(91, 121, 205, 0.2);
+    padding: 25px;
+    border-radius: 45px;
+    width: 80vw;
+    max-width: 900px;
+}
+
+mat-form-field {
+    width: 100%;
+
+    mat-label {
+        font-size: 14px;
+    }
+}
+
+.small-info-inputs {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.small-info-inputs mat-form-field {
+    flex: 1;
+}
+
+
+.error {
+    color: #EE0004
+}
+
+.container,
+.container form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+mat-form-field {
+    position: relative;
+
+    .mat-error {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+
+    .required-error,
+    .mismatch-error {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .mismatch-error {
+        min-height: 1.2em;
+    }
+
+    .mat-form-field-subscript-wrapper {
+        min-height: 2.4em;
+    }
+}
+
+@include for-mobile {
+    mat-form-field {
+        width: 75vw;
+        max-width: 320px;
+    
+        mat-label {
+            font-size: 14px;
+        }
+    }
+
+    .form-container {
+        padding: 25px;
+        border-radius: 30px;
+        width: 90vw;
+        max-width: 360px;
+    }
+}

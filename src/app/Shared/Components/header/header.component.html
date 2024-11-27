@@ -1,10 +1,33 @@
 <mat-toolbar class="toolbar">
+
+  <button mat-icon-button class="menu-icon" (click)="openSidenav('menu')" aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <img class="logo-header" src="../../../../assets/images/white-logo.png">
+
+  
   <div class="links">
     <button mat-button (click)="dashboard()">Inicio</button>
     <button mat-button>Parques</button>
     <button mat-button>Contáctanos</button>
   </div>
-  <div class="account-icon" (click)="openSidenav()">
+
+  
+  <!-- 
+  Editar cuando esté el listado de parques
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="search-input">
+      <mat-label>Buscar</mat-label>
+      <input matInput (input)="onSearch($event)" placeholder="Escribe para buscar" />
+      <button mat-icon-button matSuffix aria-label="Buscar" (click)="performSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div> -->
+
+  
+  <div class="account-icon" (click)="openSidenav('account')">
     <mat-icon fontIcon="account_circle"></mat-icon>
   </div>
 </mat-toolbar>

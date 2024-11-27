@@ -1,0 +1,19 @@
+.carousel-container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .carousel-inner {
+    height: 580px;
+  }
+  
+  .carousel-item {
+    height: 100%;
+  }
+  
+  .carousel-item img {
+    height: 100%; 
+    object-fit: cover; 
+    width: 100%; 
+  }
+  

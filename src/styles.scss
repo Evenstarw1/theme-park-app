@@ -1,4 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@import './variables.scss';
+@import './mediaqueries.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, 
+body { 
+    height: 100%; 
+}
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+    font-size: $font-size-h1;
+}
+
+.mdc-button__label {
+ color: white;
+ font-size: $font-size-body;
+}
+
+.body-container-title {
+    display: flex;
+    align-items: flex-start;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.content-wrapper {
+    padding-bottom: 230px;
+}

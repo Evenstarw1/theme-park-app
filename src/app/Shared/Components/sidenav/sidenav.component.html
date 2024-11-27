@@ -1,10 +1,19 @@
 <mat-sidenav-container class="sidenav-container">
     <!-- Sidenav -->
-    <mat-sidenav #sidenav mode="over" position="end" class="sidenav-content">
+    <mat-sidenav *ngIf="sidenavType === 'menu'" #sidenav mode="over" position="start" class="sidenav-content">
+        <ul>
+          <li><button mat-button (click)="home()">Inicio</button></li>
+          <li><button mat-button (click)="parksList()">Parques</button></li>
+          <li><button mat-button (click)="contact()">Contáctanos</button></li>
+        </ul>
+      </mat-sidenav>
+
+      <mat-sidenav *ngIf="sidenavType === 'account'" #sidenav mode="over" position="end" class="sidenav-content">
         <ul>
           <li><button mat-button (click)="login()">Login</button></li>
           <li><button mat-button (click)="register()">Registro</button></li>
         </ul>
       </mat-sidenav>
+
   </mat-sidenav-container>
   

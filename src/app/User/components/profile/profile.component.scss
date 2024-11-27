@@ -1,0 +1,72 @@
+@import '../../../../variables.scss';
+@import '../../../../mediaqueries.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.body-container {
+    padding-top: 120px;
+}
+
+.personal-info-container {
+    background-color: rgba(91, 121, 205, 0.2);
+    padding: 25px;
+    border-radius: 45px;
+    width: 80vw;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.user-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    height: 200px;
+    width: 200px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image img {
+    height: 100%; 
+    width: auto;
+    object-fit: cover;
+}
+
+.profile-buttons {
+    display:flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-top: 60px;
+}
+
+@include for-mobile {
+    .personal-info-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .profile-buttons {
+        padding-top: 30px;
+        flex-direction: column;
+    }
+}
+
+@include for-tablet {
+    .profile-buttons {
+        padding-top: 30px;
+        flex-direction: column;
+    }
+}

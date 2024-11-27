@@ -1,21 +1,36 @@
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+import { EffectsArray, appReducers } from './app.reducers';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Shared/Components/header/header.component';
+import { FooterComponent } from './Shared/Components/footer/footer.component';
+import { AuthModule } from './Auth/auth.module';
+import { UserModule } from './User/user.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import { FooterComponent } from './Shared/Components/footer/footer.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { SidenavComponent } from './Shared/Components/sidenav/sidenav.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserModule } from './User/user.module';
+import { ProfileComponent } from './User/components/profile/profile.component';
+import { HomeComponent } from './home/home.component';
+import { AuthInterceptorService } from './Shared/Services/auth-interceptor.service';
+import  { LoadingInterceptor } from './Shared/Services/loading.interceptor';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+
+
 
 
 @NgModule({
@@ -23,7 +38,10 @@ import { UserModule } from './User/user.module';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidenavComponent
+    SidenavComponent,
+    ProfileComponent,
+    HomeComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -33,12 +51,33 @@ import { UserModule } from './User/user.module';
     BrowserAnimationsModule,
     MatIconModule,
     MatMenuModule,
+    MatInputModule,
     MatSidenavModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
-    UserModule
+    MatProgressSpinnerModule,
+    UserModule,
+    AuthModule,
+    StoreModule.forRoot(appReducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

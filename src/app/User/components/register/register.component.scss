@@ -1,3 +1,10 @@
+@import '../../../../variables.scss';
+@import '../../../../mediaqueries.scss';
+
+.body-container{
+    padding-top: 120px;
+}
+
 .register-container {
     margin-left: auto;
     margin-right: auto;
@@ -6,7 +13,6 @@
 
 .form-container {
     background-color: rgba(91, 121, 205, 0.2);
-
     padding: 25px;
     border-radius: 45px;
     width: 900px;
@@ -32,7 +38,7 @@ mat-form-field {
 
 
 .error {
-    color: #EE0004
+    color: $red-color;
 }
 
 .container,
@@ -64,5 +70,47 @@ mat-form-field {
 
     .mat-form-field-subscript-wrapper {
         min-height: 2.4em;
+    }
+}
+
+@include for-mobile {
+    mat-form-field {
+        width: 75vw;
+        max-width: 320px;
+    
+        mat-label {
+            font-size: 14px;
+        }
+    }
+
+    .form-container {
+        padding: 25px;
+        border-radius: 30px;
+        width: 90vw;
+        max-width: 360px;
+    }
+}
+
+@include for-tablet {
+    .small-info-inputs,
+    mat-form-field {
+        width: 75vw;
+        max-width: 680px;
+    
+        mat-label {
+            font-size: 14px;
+        }
+    }
+
+    .form-container {
+        padding: 25px;
+        border-radius: 30px;
+        width: 90vw;
+        max-width: 760px;
+    }
+
+    .small-info-inputs {
+        flex-direction: column;
+        gap: 0;
     }
 }

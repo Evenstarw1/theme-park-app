@@ -1,0 +1,33 @@
+<div class="container body-container">
+    <h1>Inicia sesión</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email:</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Email" />
+            <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                <ng-container *ngIf="loginForm.get('email')?.hasError('required')">
+                    El email es obligatorio.
+                </ng-container>
+                <ng-container *ngIf="loginForm.get('email')?.hasError('email')">
+                    El formato del email no es válido.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Contraseña:</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Contraseña" />
+            <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <ng-container *ngIf="loginForm.get('password')?.hasError('required')">
+                    La contraseña es obligatoria.
+                </ng-container>
+                <ng-container *ngIf="loginForm.get('password')?.hasError('minlength')">
+                    La contraseña debe tener al menos 8 caracteres.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Entrar</button>
+    </form>
+</div>
