@@ -86,6 +86,11 @@ export class UserEffects {
           catchError((error) => {
             this.sharedService.managementSnackBar('Error al actualizar el perfil', false);
             return of(UserActions.updateUserFailure({ payload: error }));
+          }),
+          finalize(() => {
+            if (this.responseOK) {
+              this.router.navigateByUrl('profile');
+            }
           })
         )
       )

@@ -33,7 +33,7 @@
   
       <mat-form-field class="example-full-width">
         <mat-label>Descripción:</mat-label>
-        <textarea matInput placeholder="">Añade una descripción sobre ti</textarea>
+        <textarea matInput placeholder="Añade una descripción sobre ti" [formControl]="description"></textarea>
       </mat-form-field>
   
       <mat-form-field>

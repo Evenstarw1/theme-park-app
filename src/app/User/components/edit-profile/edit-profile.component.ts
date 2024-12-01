@@ -61,10 +61,7 @@ export class EditProfileComponent implements OnInit {
 
     this.profile_picture = new FormControl(null);
 
-    this.description = new FormControl(this.registerUser.description, [
-      Validators.required,
-      Validators.minLength(8),
-    ]);
+    this.description = new FormControl(null);
 
     this.editProfileForm = this.formBuilder.group({
       name: this.name,

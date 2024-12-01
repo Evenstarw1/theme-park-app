@@ -3,7 +3,9 @@
     <div class="personal-info-container" *ngIf="profileUser$ | async as profileUser;">
         <div class="user-image-container">
             <div class="profile-image">
-                <img src="../../../../assets/images/profile.png" alt="User profile image" />
+                <img 
+                [src]="profileUser.profile_picture ? profileUser.profile_picture : '../../../../assets/images/profile.png'" 
+                alt="User profile image" />
             </div>
             <h2>{{ profileUser.name }}</h2>
         </div>
@@ -14,7 +16,7 @@
 
             <div class="profile-buttons">
                 <button mat-raised-button color="primary" type="button" (click)="navigateToEditProfile()">Modificar perfil</button>
-                <button mat-raised-button color="primary" type="button">Cerrar Sesión</button>
+                <button mat-raised-button color="primary" type="button" (click)="logout()">Cerrar Sesión</button>
             </div>
         </div>
 

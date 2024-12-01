@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { UserDTO } from '../../models/user.dto';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import * as AuthAction from '../../../Auth/actions';
 
 @Component({
   selector: 'app-profile',
@@ -40,5 +41,10 @@ export class ProfileComponent implements OnInit {
 
   navigateToEditProfile(): void {
     this.router.navigate(['/edit-profile']);
+  }
+
+  logout(): void {
+    this.store.dispatch(AuthAction.logout());
+    this.router.navigateByUrl('home');
   }
 }

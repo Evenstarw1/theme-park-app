@@ -98,10 +98,7 @@ export class RegisterComponent implements OnInit {
 
     this.profile_picture = new FormControl(null);
 
-    this.description = new FormControl(this.registerUser.description, [
-      Validators.required,
-      Validators.minLength(8),
-    ]);
+    this.description =new FormControl(null);
 
     this.registerForm = this.formBuilder.group({
       name: this.name,
