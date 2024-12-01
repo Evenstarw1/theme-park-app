@@ -45,7 +45,7 @@ export class AuthEffects {
           }),
           finalize(() => {
             if (this.responseOK) {
-              this.router.navigateByUrl('home');
+              this.router.navigateByUrl('profile');
             }
           })
         )

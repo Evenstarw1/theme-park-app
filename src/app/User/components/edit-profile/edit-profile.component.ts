@@ -1,54 +1,34 @@
 import * as UserAction from '../../actions';
-
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-  ValidatorFn,
-  AbstractControl,
-  ValidationErrors
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { UserDTO } from '../../models/user.dto';
 import { formatDate } from '@angular/common';
-import { CustomValidators } from '../../../Shared/custom-validators'; 
-
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
   registerUser: UserDTO;
+  private userId: string;
   formSubmitted = false;
-
 
   name: FormControl;
   birth_date: FormControl;
-  email: FormControl;
-  confirmEmail: FormControl;
-  password: FormControl;
-  confirmPassword: FormControl;
   city: FormControl;
   profile_picture: FormControl;
   description: FormControl;
 
-  registerForm: FormGroup;
+  editProfileForm: FormGroup;
   isValidForm: boolean | null;
   profilePicture: string | ArrayBuffer | null = null;
 
   categories = new FormControl([]);
-  categoryList: string[] = [
-    'familiar',
-    'aventura',
-    'emociones fuertes',
-    'acuatico'
-  ];
-  //Llamar endpoint categories para rellenar el array.
+  categoryList: string[] = ['familiar', 'aventura', 'emociones fuertes', 'acuatico'];
 
   get categoriesDisplayText(): string {
     const selectedCategories = this.categories.value || [];
@@ -59,13 +39,9 @@ export class RegisterComponent implements OnInit {
     })`;
   }
 
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private store: Store<AppState>
-  ) {
-    this.registerUser = new UserDTO('', '', '', '', '',  '', '', []);
-
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) {
+    this.registerUser = new UserDTO('', '', '', '', '', '', '', []);
+    this.userId = '';
     this.isValidForm = null;
 
     this.name = new FormControl(this.registerUser.name, [
@@ -81,19 +57,6 @@ export class RegisterComponent implements OnInit {
       [Validators.required]
     );
 
-    this.email = new FormControl(this.registerUser.email, [
-      Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-    ]);
-    this.confirmEmail = new FormControl('', [Validators.required]);
-
-
-    this.password = new FormControl(this.registerUser.password, [
-      Validators.required,
-      Validators.minLength(8),
-    ]);
-    this.confirmPassword = new FormControl('', [Validators.required]);
-
     this.city = new FormControl(this.registerUser.city);
 
     this.profile_picture = new FormControl(null);
@@ -103,40 +66,51 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(8),
     ]);
 
-    this.registerForm = this.formBuilder.group({
+    this.editProfileForm = this.formBuilder.group({
       name: this.name,
       birth_date: this.birth_date,
-      email: this.email,
-      confirmEmail: this.confirmEmail,
-      password: this.password,
-      confirmPassword: this.confirmPassword,
       city: this.city,
       profile_picture: this.profile_picture,
       description: this.description,
-      categories: this.categories
-    },
-    {
-      validators: [
-        CustomValidators.match('password', 'confirmPassword', 'password-mismatch'),
-        CustomValidators.match('email', 'confirmEmail', 'email-mismatch')
-      ]
+      categories: this.categories,
+    });
+
+    this.store.select('auth').subscribe((auth) => {
+      if (auth.credentials?.user_id) {
+        this.userId = auth.credentials.user_id;
+      }
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userId) {
+      this.store.dispatch(UserAction.getUserById({ userId: this.userId }));
 
+      this.store.select((state) => state.user.user).subscribe((user) => {
+        if (user) {
+          this.editProfileForm.patchValue({
+            name: user.name,
+            birth_date: formatDate(user.birth_date, 'yyyy-MM-dd', 'en'),
+            city: user.city,
+            profile_picture: user.profile_picture,
+            description: user.description,
+            categories: user.categories,
+          });
+        }
+      });
+    }
+  }
 
-  register(): void {
+  editProfile(): void {
     this.isValidForm = false;
     this.formSubmitted = true;
 
-
-    // if (this.registerForm.invalid) {
+    // if (this.editProfileForm.invalid) {
     //   return;
     // }
 
     this.isValidForm = true;
-    this.registerUser = this.registerForm.value;
+    this.registerUser = this.editProfileForm.value;
 
     let formattedBirthDate: string | null = null;
     if (this.registerUser.birth_date) {
@@ -147,19 +121,20 @@ export class RegisterComponent implements OnInit {
         console.error('Invalid date value for birth_date:', this.registerUser.birth_date);
       }
     }
-  
+
     const user: UserDTO = {
+      id: this.userId,
       name: this.registerUser.name,
       birth_date: formattedBirthDate || '',
-      email: this.registerUser.email,
-      password: this.registerUser.password,
+      email: '',
+      password: '',
       city: this.registerUser.city,
-      profile_picture: this.registerForm.value.profile_picture,
+      profile_picture: this.editProfileForm.value.profile_picture,
       description: this.registerUser.description,
-      categories: this.registerForm.get('categories')?.value || []
+      categories: this.editProfileForm.get('categories')?.value || [],
     };
 
     console.log(user, 'user');
-    this.store.dispatch(UserAction.register({ user }));
+    this.store.dispatch(UserAction.updateUser({ userId: this.userId, user }));
   }
 }

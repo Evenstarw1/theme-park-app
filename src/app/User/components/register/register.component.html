@@ -2,7 +2,6 @@
   <h1>Registro</h1>
   <form [formGroup]="registerForm" (ngSubmit)="register()" class="form-container">
 
-    <!-- Username -->
     <mat-form-field appearance="fill">
       <mat-label for="name">Username: </mat-label>
       <input matInput type="text" [formControl]="name" />
@@ -29,15 +28,11 @@
     <mat-form-field appearance="fill">
       <mat-label for="confirmEmail">Confirmar email: </mat-label>
       <input matInput type="email" formControlName="confirmEmail" placeholder="Confirmar email" />
-      
-      <!-- Mensaje de error para el campo requerido -->
       <mat-error class="required-error" *ngIf="registerForm.get('confirmEmail')?.invalid && registerForm.get('confirmEmail')?.touched">
         <ng-container *ngIf="registerForm.get('confirmEmail')?.hasError('required')">
           Debes confirmar el email.
         </ng-container>
       </mat-error>
-      
-      <!-- Mensaje de error de coincidencia de emails con clase personalizada -->
       <mat-error class="mismatch-error" *ngIf="registerForm.errors?.['email-mismatch']">
         Los emails no coinciden.
       </mat-error>
@@ -61,15 +56,12 @@
     <mat-form-field appearance="fill">
       <mat-label for="confirmPassword">Confirmar Contraseña: </mat-label>
       <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña" />
-      <!-- Mensaje de error para el campo requerido -->
       <mat-error class="required-error"
         *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
         <ng-container *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
           Debes confirmar la contraseña.
         </ng-container>
       </mat-error>
-
-      <!-- Mensaje de error de coincidencia de contraseñas con clase personalizada -->
       <mat-error class="mismatch-error" *ngIf="registerForm.errors?.['password-mismatch']">
         Las contraseñas no coinciden.
       </mat-error>

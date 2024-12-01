@@ -4,6 +4,7 @@ import { EffectsArray, appReducers } from './app.reducers';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { AuthInterceptorService } from './Shared/Services/auth-interceptor.servi
 import  { LoadingInterceptor } from './Shared/Services/loading.interceptor';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
+import { ConstructionComponent } from './Shared/Components/construction/construction.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -41,10 +44,13 @@ import { StoreModule } from '@ngrx/store';
     SidenavComponent,
     ProfileComponent,
     HomeComponent,
+    ConstructionComponent,
+    ContactComponent,
     
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,
@@ -65,6 +71,7 @@ import { StoreModule } from '@ngrx/store';
         strictActionImmutability: false,
       },
     }),
+    EffectsModule.forRoot(EffectsArray),
   ],
   providers: [
     {

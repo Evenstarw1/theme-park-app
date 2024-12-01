@@ -24,7 +24,7 @@ export class SharedService {
   ): void {
     const panelClass = isSuccess ? 'snack-bar-success' : 'snack-bar-error';
     this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
+      duration: 6000,
       panelClass: [panelClass],
     });
   }

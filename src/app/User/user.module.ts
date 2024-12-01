@@ -10,11 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, EditProfileComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

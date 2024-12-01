@@ -19,7 +19,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'pub/login';
-    this.urlParkFinderApi = 'http://localhost:3000/' + this.controller; //CHECKKKKKK
+    this.urlParkFinderApi = '/api/' + this.controller; //CHECKKKKKK
   }
 
   login(auth: AuthDTO): Observable<AuthToken> {
