@@ -43,11 +43,16 @@ export class RegisterComponent implements OnInit {
 
   get categoriesDisplayText(): string {
     const selectedCategoryIds = this.categories.value || [];
+    if (!this.categoryList || this.categoryList.length === 0) {
+      return 'No categories available';
+    }
     const selectedCategoryNames = this.categoryList
       .filter((category) => selectedCategoryIds.includes(category.id))
       .map((category) => category.name);
   
-    if (selectedCategoryNames.length === 0) return 'No categories selected';
+    if (selectedCategoryNames.length === 0) {
+      return 'No categories selected';
+    }
     return selectedCategoryNames.join(', ');
   }
 

@@ -6,6 +6,8 @@ import { ProfileComponent } from './User/components/profile/profile.component';
 import { EditProfileComponent } from './User/components/edit-profile/edit-profile.component';
 import { ConstructionComponent } from './Shared/Components/construction/construction.component';
 import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { AuthGuard } from './Shared/Guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,15 +28,21 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'edit-profile',
-    component: EditProfileComponent
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'construction',
     component: ConstructionComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   }
 ];
 

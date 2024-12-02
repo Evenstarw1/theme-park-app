@@ -95,7 +95,7 @@ export class SidenavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   contact(): void {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('contact');
     this.sidenavService.closeSidenav();
   }
 }

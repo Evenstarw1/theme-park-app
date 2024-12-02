@@ -19,6 +19,10 @@ export class HeaderComponent {
     this.router.navigateByUrl('home');
   }
 
+  contact(): void {
+    this.router.navigateByUrl('contact');
+  }
+
   openSidenav(type: 'menu' | 'account'): void {
     this.sidenavService.toggleSidenav(type);
   }
