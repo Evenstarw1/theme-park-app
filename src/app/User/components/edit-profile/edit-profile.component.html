@@ -42,8 +42,8 @@
           <mat-select-trigger>
             {{ categoriesDisplayText }}
           </mat-select-trigger>
-          <mat-option *ngFor="let category of categoryList" [value]="category">
-            {{ category }}
+          <mat-option *ngFor="let category of categoryList" [value]="category.id">
+            {{ category.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
-//import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,9 +13,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 
-
 @NgModule({
-  declarations: [RegisterComponent, EditProfileComponent],
+  declarations: [RegisterComponent, ProfileComponent, EditProfileComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

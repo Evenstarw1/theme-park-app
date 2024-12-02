@@ -5,17 +5,15 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
-  ValidatorFn,
-  AbstractControl,
-  ValidationErrors
+  Validators
 } from '@angular/forms';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { UserDTO } from '../../models/user.dto';
 import { formatDate } from '@angular/common';
 import { CustomValidators } from '../../../Shared/custom-validators'; 
-
+import { CategoriesService } from 'src/app/Shared/Services/categories.service';
+import { Category } from 'src/app/Shared/Models/categories.dto';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +23,6 @@ import { CustomValidators } from '../../../Shared/custom-validators';
 export class RegisterComponent implements OnInit {
   registerUser: UserDTO;
   formSubmitted = false;
-
 
   name: FormControl;
   birth_date: FormControl;
@@ -41,30 +38,25 @@ export class RegisterComponent implements OnInit {
   isValidForm: boolean | null;
   profilePicture: string | ArrayBuffer | null = null;
 
-  categories = new FormControl([]);
-  categoryList: string[] = [
-    'familiar',
-    'aventura',
-    'emociones fuertes',
-    'acuatico'
-  ];
-  //Llamar endpoint categories para rellenar el array.
+  categories = new FormControl<number[]>([]);
+  categoryList: Category[] = [];
 
   get categoriesDisplayText(): string {
-    const selectedCategories = this.categories.value || [];
-    if (selectedCategories.length === 0) return '';
-    if (selectedCategories.length === 1) return selectedCategories[0];
-    return `${selectedCategories[0]} (+${selectedCategories.length - 1} ${
-      selectedCategories.length === 2 ? 'otra' : 'otras'
-    })`;
+    const selectedCategoryIds = this.categories.value || [];
+    const selectedCategoryNames = this.categoryList
+      .filter((category) => selectedCategoryIds.includes(category.id))
+      .map((category) => category.name);
+  
+    if (selectedCategoryNames.length === 0) return 'No categories selected';
+    return selectedCategoryNames.join(', ');
   }
-
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private categoriesService: CategoriesService
   ) {
-    this.registerUser = new UserDTO('', '', '', '', '',  '', '', []);
+    this.registerUser = new UserDTO('', '', '', '', '', '', '', []);
 
     this.isValidForm = null;
 
@@ -87,7 +79,6 @@ export class RegisterComponent implements OnInit {
     ]);
     this.confirmEmail = new FormControl('', [Validators.required]);
 
-
     this.password = new FormControl(this.registerUser.password, [
       Validators.required,
       Validators.minLength(8),
@@ -98,35 +89,48 @@ export class RegisterComponent implements OnInit {
 
     this.profile_picture = new FormControl(null);
 
-    this.description =new FormControl(null);
+    this.description = new FormControl(null);
 
-    this.registerForm = this.formBuilder.group({
-      name: this.name,
-      birth_date: this.birth_date,
-      email: this.email,
-      confirmEmail: this.confirmEmail,
-      password: this.password,
-      confirmPassword: this.confirmPassword,
-      city: this.city,
-      profile_picture: this.profile_picture,
-      description: this.description,
-      categories: this.categories
-    },
-    {
-      validators: [
-        CustomValidators.match('password', 'confirmPassword', 'password-mismatch'),
-        CustomValidators.match('email', 'confirmEmail', 'email-mismatch')
-      ]
-    });
+    this.registerForm = this.formBuilder.group(
+      {
+        name: this.name,
+        birth_date: this.birth_date,
+        email: this.email,
+        confirmEmail: this.confirmEmail,
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+        city: this.city,
+        profile_picture: this.profile_picture,
+        description: this.description,
+        categories: this.categories,
+      },
+      {
+        validators: [
+          CustomValidators.match(
+            'password',
+            'confirmPassword',
+            'password-mismatch'
+          ),
+          CustomValidators.match('email', 'confirmEmail', 'email-mismatch'),
+        ],
+      }
+    );
   }
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.categoriesService.getCategories().subscribe(
+      (categories) => {
+        this.categoryList = categories;
+      },
+      (err) => {
+        console.error('Error fetching categories:', err);
+      }
+    );
+  }
 
   register(): void {
     this.isValidForm = false;
     this.formSubmitted = true;
-
 
     // if (this.registerForm.invalid) {
     //   return;
@@ -141,10 +145,15 @@ export class RegisterComponent implements OnInit {
       if (!isNaN(parsedDate.getTime())) {
         formattedBirthDate = parsedDate.toISOString();
       } else {
-        console.error('Invalid date value for birth_date:', this.registerUser.birth_date);
+        console.error(
+          'Invalid date value for birth_date:',
+          this.registerUser.birth_date
+        );
       }
     }
-  
+
+    const selectedCategoryIds = this.registerForm.get('categories')?.value || [];
+
     const user: UserDTO = {
       name: this.registerUser.name,
       birth_date: formattedBirthDate || '',
@@ -153,7 +162,7 @@ export class RegisterComponent implements OnInit {
       city: this.registerUser.city,
       profile_picture: this.registerForm.value.profile_picture,
       description: this.registerUser.description,
-      categories: this.registerForm.get('categories')?.value || []
+      categories: selectedCategoryIds,
     };
 
     console.log(user, 'user');

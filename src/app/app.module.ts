@@ -24,7 +24,6 @@ import { SidenavComponent } from './Shared/Components/sidenav/sidenav.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './User/components/profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptorService } from './Shared/Services/auth-interceptor.service';
 import  { LoadingInterceptor } from './Shared/Services/loading.interceptor';
@@ -42,7 +41,6 @@ import { ContactComponent } from './contact/contact.component';
     HeaderComponent,
     FooterComponent,
     SidenavComponent,
-    ProfileComponent,
     HomeComponent,
     ConstructionComponent,
     ContactComponent,

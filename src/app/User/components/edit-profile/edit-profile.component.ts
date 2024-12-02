@@ -6,6 +6,9 @@ import { Store } from '@ngrx/store';
 import { UserDTO } from '../../models/user.dto';
 import { formatDate } from '@angular/common';
 import { Observable } from 'rxjs';
+import { CategoriesService } from 'src/app/Shared/Services/categories.service';
+import { Category } from 'src/app/Shared/Models/categories.dto';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,19 +30,24 @@ export class EditProfileComponent implements OnInit {
   isValidForm: boolean | null;
   profilePicture: string | ArrayBuffer | null = null;
 
-  categories = new FormControl([]);
-  categoryList: string[] = ['familiar', 'aventura', 'emociones fuertes', 'acuatico'];
+  categories = new FormControl<number[]>([]);
+  categoryList: Category[] = [];
 
   get categoriesDisplayText(): string {
-    const selectedCategories = this.categories.value || [];
-    if (selectedCategories.length === 0) return '';
-    if (selectedCategories.length === 1) return selectedCategories[0];
-    return `${selectedCategories[0]} (+${selectedCategories.length - 1} ${
-      selectedCategories.length === 2 ? 'otra' : 'otras'
-    })`;
+    const selectedCategoryIds = this.categories.value || [];
+    const selectedCategoryNames = this.categoryList
+      .filter((category) => selectedCategoryIds.includes(category.id))
+      .map((category) => category.name);
+  
+    if (selectedCategoryNames.length === 0) return 'No categories selected';
+    return selectedCategoryNames.join(', ');
   }
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<AppState>,
+    private categoriesService: CategoriesService
+  ) {
     this.registerUser = new UserDTO('', '', '', '', '', '', '', []);
     this.userId = '';
     this.isValidForm = null;
@@ -81,6 +89,14 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.userId) {
+      this.categoriesService.getCategories().subscribe(
+        (categories) => {
+          this.categoryList = categories;
+        },
+        (err) => {
+          console.error('Error fetching categories:', err);
+        }
+      );
       this.store.dispatch(UserAction.getUserById({ userId: this.userId }));
 
       this.store.select((state) => state.user.user).subscribe((user) => {
@@ -119,6 +135,8 @@ export class EditProfileComponent implements OnInit {
       }
     }
 
+    const selectedCategoryIds = this.editProfileForm.get('categories')?.value || [];
+
     const user: UserDTO = {
       id: this.userId,
       name: this.registerUser.name,
@@ -128,7 +146,7 @@ export class EditProfileComponent implements OnInit {
       city: this.registerUser.city,
       profile_picture: this.editProfileForm.value.profile_picture,
       description: this.registerUser.description,
-      categories: this.editProfileForm.get('categories')?.value || [],
+      categories: selectedCategoryIds,
     };
 
     console.log(user, 'user');
