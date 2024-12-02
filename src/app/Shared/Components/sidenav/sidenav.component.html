@@ -1,5 +1,4 @@
 <mat-sidenav-container class="sidenav-container">
-    <!-- Sidenav -->
     <mat-sidenav *ngIf="sidenavType === 'menu'" #sidenav mode="over" position="start" class="sidenav-content">
         <ul>
           <li><button mat-button (click)="home()">Inicio</button></li>
@@ -10,8 +9,15 @@
 
       <mat-sidenav *ngIf="sidenavType === 'account'" #sidenav mode="over" position="end" class="sidenav-content">
         <ul>
-          <li><button mat-button (click)="login()">Login</button></li>
-          <li><button mat-button (click)="register()">Registro</button></li>
+          <ng-container *ngIf="showAuthSection">
+            <li><button mat-button (click)="profile()">Perfil</button></li>
+            <li><button mat-button (click)="logout()">Cerrar sesión</button></li>
+          </ng-container>
+
+          <ng-container *ngIf="showNoAuthSection">
+            <li><button mat-button (click)="login()">Login</button></li>
+            <li><button mat-button (click)="register()">Registro</button></li>
+          </ng-container>
         </ul>
       </mat-sidenav>
 
