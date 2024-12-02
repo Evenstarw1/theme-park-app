@@ -15,11 +15,9 @@ export class SidenavService {
     const isCurrentlyOpen = this.sidenavOpenSource.getValue();
     const currentType = this.sidenavTypeSource.getValue();
 
-    // Si el tipo actual coincide y el sidenav está abierto, cierra el sidenav
     if (isCurrentlyOpen && currentType === type) {
       this.closeSidenav();
     } else {
-      // Si no coincide o está cerrado, establece el nuevo tipo y abre el sidenav
       this.setSidenavType(type);
       this.openSidenav();
     }

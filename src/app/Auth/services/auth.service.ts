@@ -19,12 +19,12 @@ export class AuthService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'pub/login';
-    this.urlParkFinderApi = '/api/' + this.controller; //CHECKKKKKK
+    this.urlParkFinderApi = '/api/' + this.controller; 
   }
 
   login(auth: AuthDTO): Observable<AuthToken> {
     return this.http
       .post<AuthToken>(this.urlParkFinderApi, auth)
-      .pipe(catchError(this.sharedService.handleError)); //CHECK CUANDO INTRODUZCA GESTION DE ERRRORES
+      .pipe(catchError(this.sharedService.handleError));
   }
 }

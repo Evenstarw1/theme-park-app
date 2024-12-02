@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { SharedService } from './Shared/Services/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,24 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'theme-park-app';
   sidenavOpen = false;
-  
+  loading: boolean;
+
+  constructor(private sharedService: SharedService, private cdr: ChangeDetectorRef) {
+    this.loading = false;
+  }
+
+  ngOnInit(): void {
+    this.sharedService.getLoading().subscribe((loading) => {
+      this.loading = loading;
+      this.cdr.detectChanges();
+    });
+  }
+
   toggleSidenav(): void {
-    this.sidenavOpen = !this.sidenavOpen; // Cambia el estado de apertura/cierre
+    this.sidenavOpen = !this.sidenavOpen;
   }
 
   onSidenavClosed(): void {
-    this.sidenavOpen = false; // Establece el estado a 'cerrado' cuando el sidenav se cierra
+    this.sidenavOpen = false;
   }
 }
