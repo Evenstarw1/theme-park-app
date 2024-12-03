@@ -8,7 +8,7 @@
 @include for-mobile {
   .carousel-container {
     padding-top: 80px;
-}
+  }
 }
 
 .landing-info {
@@ -28,11 +28,19 @@
   flex-direction: row;
   gap: 65px;
 
-  .park-info-detail {
-
-  }
-
   img {
     width: 150px;
+  }
+}
+
+
+  @include for-mobile {
+  .info-container {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 100px;
+    }
   }
 }
