@@ -1,3 +1,22 @@
 <div class="container body-container">
     <h1>Contáctanos</h1>
+    <form #form="ngForm" (ngSubmit)="sendEmail(form.value)" class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Tu nombre</mat-label>
+            <input matInput type="text" name="to_name" ngModel required placeholder="Ingresa tu nombre" />
+          </mat-form-field>
+      
+
+          <mat-form-field appearance="fill">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput type="email" name="from_name" ngModel required placeholder="Ingresa tu correo electrónico" />
+          </mat-form-field>
+      
+
+          <mat-form-field appearance="fill">
+            <mat-label>Mensaje</mat-label>
+            <textarea matInput name="message" ngModel required placeholder="Escribe tu mensaje"></textarea>
+          </mat-form-field>
+        <button mat-raised-button color="primary" type="button" type="submit">Enviar</button>
+      </form>
 </div>

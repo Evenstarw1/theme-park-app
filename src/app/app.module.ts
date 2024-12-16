@@ -31,7 +31,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { ConstructionComponent } from './Shared/Components/construction/construction.component';
 import { ContactComponent } from './contact/contact.component';
-
+import { FormsModule } from '@angular/forms'; 
 
 
 
@@ -63,6 +63,7 @@ import { ContactComponent } from './contact/contact.component';
     MatProgressSpinnerModule,
     UserModule,
     AuthModule,
+    FormsModule,
     StoreModule.forRoot(appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,

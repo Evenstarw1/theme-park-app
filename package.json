@@ -28,6 +28,7 @@
     "@ngrx/store": "^15.4.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "emailjs-com": "^3.2.0",
     "fortawesome": "^0.0.1-security",
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",
