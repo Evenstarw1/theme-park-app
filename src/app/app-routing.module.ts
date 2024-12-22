@@ -7,6 +7,7 @@ import { EditProfileComponent } from './User/components/edit-profile/edit-profil
 import { ConstructionComponent } from './Shared/Components/construction/construction.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
+import { ParksListComponent } from './Parks/parks-list/parks-list.component'; 
 import { AuthGuard } from './Shared/Guards/auth.guard';
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ const routes: Routes = [
     path: 'edit-profile',
     component: EditProfileComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'park-list',
+    component: ParksListComponent
   },
   {
     path: 'construction',

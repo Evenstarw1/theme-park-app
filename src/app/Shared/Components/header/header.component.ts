@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavService } from 'src/app/Shared/Services/sidenav.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 
 
 @Component({
@@ -12,11 +14,24 @@ export class HeaderComponent {
 
   @Output() sidenavToggle = new EventEmitter<void>();
   searchQuery: string = '';
+  isAuthenticated: boolean = false;
 
-  constructor(private router: Router, private sidenavService: SidenavService) { }
+  constructor(private router: Router, private sidenavService: SidenavService, private store: Store<AppState>) {
+    this.store.select('auth').subscribe(auth => {
+      this.isAuthenticated = !!auth.credentials?.access_token;
+    });
+   }
 
   dashboard(): void {
     this.router.navigateByUrl('home');
+  }
+
+  parksList(): void {
+    if (this.isAuthenticated) {
+      this.router.navigateByUrl('park-list');
+    } else {
+      this.router.navigateByUrl('login');
+    }
   }
 
   contact(): void {

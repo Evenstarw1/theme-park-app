@@ -10,6 +10,7 @@ import {
 import { AppState } from 'src/app/app.reducers';
 import { AuthDTO } from '../../models/auth.dto';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.email = new FormControl('', [
       Validators.required,
@@ -54,6 +56,10 @@ export class LoginComponent implements OnInit {
     };
 
     this.store.dispatch(AuthAction.login({ credentials }));
+  }
+
+  register(): void {
+    this.router.navigateByUrl('register');
   }
 
 }
