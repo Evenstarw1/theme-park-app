@@ -1,1 +1,15 @@
-<p>cards works!</p>
+<mat-card class="card">
+    <img mat-card-image [src]="park.picture" alt="{{ park.name }}" />
+
+    <div class="card-info">
+        <mat-card-header>
+            <mat-card-title class="card-title">{{ park.name }}</mat-card-title>
+        </mat-card-header>
+
+        <div class="card-button">
+            <mat-card-actions>
+                <button mat-raised-button color="primary">Ver más</button>
+            </mat-card-actions>
+        </div>
+    </div>
+</mat-card>

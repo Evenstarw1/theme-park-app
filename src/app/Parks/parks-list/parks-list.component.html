@@ -1,5 +1,9 @@
-<div class="container body-container">
-    <p>parks-list works!</p>
+<div class="body-container">
+    <h1>Listado de parques</h1>
 
-
+    <div class="container">
+        <div *ngFor="let park of parks$ | async" class="parks_card">
+            <app-cards [park]="park"></app-cards>
+        </div>
+    </div>
 </div>
