@@ -8,8 +8,4 @@ import { ParksDTO } from "../../../Parks/models/parks.dto";
 })
 export class CardsComponent {
     @Input() park!: ParksDTO;
-
-    ngOnChanges(): void {
-        console.log("Park data:", this.park);
-    }
 }

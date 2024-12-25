@@ -24,10 +24,6 @@ export class ParksListComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadParks();
-
-        this.parks$.subscribe((parks) => {
-            console.log("Parks array from selector:", parks);
-        });
     }
 
     private loadParks(): void {

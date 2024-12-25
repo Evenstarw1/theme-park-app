@@ -1,1 +1,8 @@
 <p>parks-detail works!</p>
+<div *ngIf="parkDetail$ | async as parkDetail">
+    <div id="image">
+        <img [src]="parkDetail.picture ? parkDetail.picture : '../../../../assets/images/profile.png'" alt="{{ parkDetail.name }}" />
+    </div>
+    <h2>{{ parkDetail.name }}</h2>
+    <p>{{ parkDetail.description }}</p>
+</div>

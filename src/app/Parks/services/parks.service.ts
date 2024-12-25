@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { SharedService } from "src/app/Shared/Services/shared.service";
-import { ParksDTO } from "../models/parks.dto";
+import { ParkDetailDTO, ParksDTO } from "../models/parks.dto";
 
 @Injectable({
     providedIn: "root",
@@ -17,5 +17,9 @@ export class ParksService {
 
     getParksList(): Observable<ParksDTO[]> {
         return this.http.get<ParksDTO[]>(this.urlParkFinderApi + "priv/parks").pipe(catchError(this.sharedService.handleError));
+    }
+
+    getParkDetail(parkId: string): Observable<ParkDetailDTO> {
+        return this.http.get<ParkDetailDTO>(`${this.urlParkFinderApi}priv/park/${parkId}`).pipe(catchError(this.sharedService.handleError));
     }
 }
