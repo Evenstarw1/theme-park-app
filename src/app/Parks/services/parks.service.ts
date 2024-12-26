@@ -22,4 +22,10 @@ export class ParksService {
     getParkDetail(parkId: string): Observable<ParkDetailDTO> {
         return this.http.get<ParkDetailDTO>(`${this.urlParkFinderApi}priv/park/${parkId}`).pipe(catchError(this.sharedService.handleError));
     }
+
+    addParkComment(parkId: string, comment: string): Observable<any> {
+        return this.http
+            .post(`${this.urlParkFinderApi}/priv/park/comments`, { themepark_id: Number(parkId), comment })
+            .pipe(catchError(this.sharedService.handleError));
+    }
 }

@@ -1,8 +1,49 @@
-<p>parks-detail works!</p>
-<div *ngIf="parkDetail$ | async as parkDetail">
-    <div id="image">
-        <img [src]="parkDetail.picture ? parkDetail.picture : '../../../../assets/images/profile.png'" alt="{{ parkDetail.name }}" />
+<div class="body-container">
+    <div *ngIf="parkDetail$ | async as parkDetail">
+        <div class="basic-info-container">
+            <div id="image">
+                <img [src]="parkDetail.picture ? parkDetail.picture : '../../../../assets/images/profile.png'" alt="{{ parkDetail.name }}" />
+            </div>
+            <div class="basic-info-park">
+                <h1>{{ parkDetail.name }}</h1>
+                <h2>Categorías</h2>
+                <mat-list class="park-categories">
+                    <mat-list-item *ngFor="let category of parkDetail.categories">
+                        {{ category.name }}
+                    </mat-list-item>
+                </mat-list>
+
+                <p>{{ parkDetail.description }}</p>
+            </div>
+        </div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title> Lista de Atracciones </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <mat-list-item *ngFor="let attraction of parkDetail.attractions">
+                    {{ attraction.name }}
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+
+        <div class="extra-info-container">
+            <div class="park-comments">
+                <h2>Comentarios</h2>
+                <div class="scroll-container">
+                    <mat-list>
+                        <mat-list-item *ngFor="let comment of parkDetail.comments">
+                            <strong>{{ comment.user_name }}:</strong> {{ comment.comment }}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <button mat-raised-button color="primary" (click)="openDialog()">Añade un comentario</button>
+            </div>
+
+            <google-map [center]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }" [zoom]="15">
+                <map-marker [position]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }"></map-marker>
+            </google-map>
+        </div>
     </div>
-    <h2>{{ parkDetail.name }}</h2>
-    <p>{{ parkDetail.description }}</p>
 </div>

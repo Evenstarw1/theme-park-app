@@ -6,12 +6,17 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { EffectsModule } from "@ngrx/effects";
 
+import { ScrollingModule } from "@angular/cdk/scrolling";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GoogleMapsModule } from "@angular/google-maps";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -28,6 +33,7 @@ import { ParksDetailComponent } from "./Parks/parks-detail/parks-detail.componen
 import { ParksListComponent } from "./Parks/parks-list/parks-list.component";
 import { CardsComponent } from "./Shared/Components/cards/cards.component";
 import { ConstructionComponent } from "./Shared/Components/construction/construction.component";
+import { DialogComponent } from "./Shared/Components/dialog/dialog.component";
 import { FooterComponent } from "./Shared/Components/footer/footer.component";
 import { HeaderComponent } from "./Shared/Components/header/header.component";
 import { SidenavComponent } from "./Shared/Components/sidenav/sidenav.component";
@@ -47,6 +53,7 @@ import { UserModule } from "./User/user.module";
         ParksListComponent,
         ParksDetailComponent,
         CardsComponent,
+        DialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -62,11 +69,16 @@ import { UserModule } from "./User/user.module";
         MatFormFieldModule,
         MatSnackBarModule,
         MatCardModule,
+        MatDialogModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
+        MatListModule,
+        MatExpansionModule,
         UserModule,
         AuthModule,
         FormsModule,
+        GoogleMapsModule,
+        ScrollingModule,
         StoreModule.forRoot(appReducers, {
             runtimeChecks: {
                 strictStateImmutability: false,

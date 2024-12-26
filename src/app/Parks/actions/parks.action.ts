@@ -13,3 +13,9 @@ export const getParkDetail = createAction("[ParkDetail Page] Get park detail", p
 export const getParkDetailSuccess = createAction("[ParkDetail Page] Get park detail Success", props<{ park: ParkDetailDTO }>());
 
 export const getParkDetailFailure = createAction("[ParkDetail Page] Get park detail Failure", props<{ payload: HttpErrorResponse }>());
+
+export const addParkComment = createAction("[ParkDetail Page] Add park comment", props<{ parkId: string; comment: string }>());
+
+export const addParkCommentSuccess = createAction("[ParkDetail Page] Add park comment Success", props<{ parkId: string; comment: string }>());
+
+export const addParkCommentFailure = createAction("[ParkDetail Page] Add park comment Failure", props<{ payload: HttpErrorResponse }>());

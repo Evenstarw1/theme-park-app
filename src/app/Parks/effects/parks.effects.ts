@@ -98,4 +98,22 @@ export class ParksEffects {
             ),
         { dispatch: false }
     );
+
+    addParkComment$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ParksActions.addParkComment),
+            exhaustMap((action) =>
+                this.parksService.addParkComment(action.parkId, action.comment).pipe(
+                    map(() => {
+                        this.sharedService.managementSnackBar("Comentario agregado exitosamente", true);
+                        return ParksActions.addParkCommentSuccess({ parkId: action.parkId, comment: action.comment });
+                    }),
+                    catchError((error) => {
+                        this.sharedService.managementSnackBar("Error al agregar el comentario", false);
+                        return of(ParksActions.addParkCommentFailure({ payload: error }));
+                    })
+                )
+            )
+        )
+    );
 }
