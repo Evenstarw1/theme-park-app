@@ -42,7 +42,7 @@ export class EditProfileComponent implements OnInit {
     }
 
     constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private categoriesService: CategoriesService) {
-        this.registerUser = new UserDTO("", "", "", "", "", "", "", []);
+        this.registerUser = new UserDTO("", "", "", "", "", "", "", [], 2);
         this.userId = "";
         this.isValidForm = null;
 
@@ -136,6 +136,7 @@ export class EditProfileComponent implements OnInit {
             profile_picture: this.editProfileForm.value.profile_picture,
             description: this.registerUser.description,
             categories: selectedCategoryIds,
+            access_level: 2,
         };
 
         this.store.dispatch(UserAction.updateUser({ userId: this.userId, user }));

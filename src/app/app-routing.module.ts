@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: () => import("./Parks/parks.module").then((m) => m.ParksModule),
     },
     {
+        path: "admin",
+        loadChildren: () => import("./Admin/admin.module").then((m) => m.AdminModule),
+    },
+    {
         path: "construction",
         component: ConstructionComponent,
     },

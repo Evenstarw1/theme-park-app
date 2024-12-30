@@ -23,6 +23,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "src/environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./Auth/auth.module";
@@ -35,6 +37,7 @@ import { HeaderComponent } from "./Shared/Components/header/header.component";
 import { SidenavComponent } from "./Shared/Components/sidenav/sidenav.component";
 import { AuthInterceptorService } from "./Shared/Services/auth-interceptor.service";
 import { LoadingInterceptor } from "./Shared/Services/loading.interceptor";
+import { SharedModule } from "./Shared/shared.module";
 
 @NgModule({
     declarations: [
@@ -76,6 +79,11 @@ import { LoadingInterceptor } from "./Shared/Services/loading.interceptor";
             },
         }),
         EffectsModule.forRoot(EffectsArray),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: environment.production,
+        }),
+        SharedModule,
     ],
     providers: [
         {
@@ -90,5 +98,6 @@ import { LoadingInterceptor } from "./Shared/Services/loading.interceptor";
         },
     ],
     bootstrap: [AppComponent],
+    exports: [SharedModule],
 })
 export class AppModule {}

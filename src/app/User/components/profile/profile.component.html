@@ -19,6 +19,7 @@
             <div class="profile-buttons">
                 <button mat-raised-button color="primary" type="button" (click)="navigateToEditProfile()">Modificar perfil</button>
                 <button mat-raised-button color="primary" type="button" (click)="logout()">Cerrar Sesión</button>
+                <button mat-raised-button color="warn" type="button" *ngIf="profileUser.access_level === 1" (click)="navigateToAdmin()">Admin</button>
             </div>
         </div>
     </div>

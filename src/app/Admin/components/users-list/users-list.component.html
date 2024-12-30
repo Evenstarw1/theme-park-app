@@ -1,0 +1,8 @@
+<div class="body-container">
+    <p>users-list works!</p>
+    <div *ngIf="users$ | async as users">
+        <ul>
+            <li *ngFor="let user of users">{{ user.id }} {{ user.name }} - {{ user.email }} - {{ user.access_level }}</li>
+        </ul>
+    </div>
+</div>

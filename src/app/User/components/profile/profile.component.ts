@@ -42,4 +42,8 @@ export class ProfileComponent implements OnInit {
         this.store.dispatch(AuthAction.logout());
         this.router.navigateByUrl("home");
     }
+
+    navigateToAdmin(): void {
+        this.router.navigate(["admin/home"]);
+    }
 }
