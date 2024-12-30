@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Category } from "src/app/Shared/Models/categories.dto";
+import { CategoryDTO } from "src/app/Shared/Models/categories.dto";
 import { SharedService } from "src/app/Shared/Services/shared.service";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CategoriesService {
         this.urlParkFinderApi = "/api/";
     }
 
-    getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>(this.urlParkFinderApi + "pub/getCategories").pipe(catchError(this.sharedService.handleError));
+    getCategories(): Observable<CategoryDTO[]> {
+        return this.http.get<CategoryDTO[]>(this.urlParkFinderApi + "pub/getCategories").pipe(catchError(this.sharedService.handleError));
     }
 }

@@ -4,12 +4,12 @@
     <ng-container *ngIf="parks$ | async as parks">
         <table mat-table [dataSource]="parks">
             <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Park ID</th>
+                <th mat-header-cell *matHeaderCellDef>Parque ID</th>
                 <td mat-cell *matCellDef="let park">{{ park.id }}</td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <th mat-header-cell *matHeaderCellDef>Titulo</th>
                 <td mat-cell *matCellDef="let park">{{ park.name }}</td>
             </ng-container>
 

@@ -5,7 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducers";
-import { Category } from "src/app/Shared/Models/categories.dto";
+import { CategoryDTO } from "src/app/Shared/Models/categories.dto";
 import { CategoriesService } from "src/app/Shared/Services/categories.service";
 import { CustomValidators } from "../../../Shared/custom-validators";
 import { UserDTO } from "../../models/user.dto";
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     profilePicture: string | ArrayBuffer | null = null;
 
     categories = new FormControl<number[]>([]);
-    categoryList: Category[] = [];
+    categoryList: CategoryDTO[] = [];
 
     get categoriesDisplayText(): string {
         const selectedCategoryIds = this.categories.value || [];

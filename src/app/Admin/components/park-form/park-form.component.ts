@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducers";
 import * as ParksActions from "src/app/Parks/actions";
 import { ParkCreateUpdateDTO } from "src/app/Parks/models/parks.dto";
-import { Category } from "src/app/Shared/Models/categories.dto";
+import { CategoryDTO } from "src/app/Shared/Models/categories.dto";
 import { CategoriesService } from "src/app/Shared/Services/categories.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class ParkFormComponent implements OnInit {
 
     parkForm: FormGroup;
 
-    categoryList: Category[] = [];
+    categoryList: CategoryDTO[] = [];
 
     get categoriesDisplayText(): string {
         const selectedCategoryIds = this.categories.value || [];
@@ -86,7 +86,6 @@ export class ParkFormComponent implements OnInit {
             this.parkId = params.get("id") || "";
             if (this.parkId) {
                 this.isUpdateMode = true;
-                console.log("Park ID obtenido de la URL:", this.parkId);
                 this.store.dispatch(ParksActions.getParkDetail({ parkId: this.parkId }));
             }
         });
@@ -145,17 +144,12 @@ export class ParkFormComponent implements OnInit {
         } else {
             this.createPark(park);
         }
-
-        console.log("Datos del parque a enviar:", park);
     }
     createPark(park: ParkCreateUpdateDTO): void {
-        //const park: ParkCreateUpdateDTO = this.parkForm.value;
         this.store.dispatch(ParksActions.addPark({ park }));
     }
 
     updatePark(park: ParkCreateUpdateDTO): void {
-        //const parkId = this.parkId;
-        //const park: ParkCreateUpdateDTO = this.parkForm.value;
         this.store.dispatch(ParksActions.updatePark({ parkId: this.parkId, park }));
     }
 }
