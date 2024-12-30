@@ -43,6 +43,6 @@ export class LoginComponent implements OnInit {
     }
 
     register(): void {
-        this.router.navigateByUrl("register");
+        this.router.navigateByUrl("user/register");
     }
 }

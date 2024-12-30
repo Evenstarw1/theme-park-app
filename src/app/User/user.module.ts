@@ -1,16 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { NgModule } from '@angular/core';
-import { ProfileComponent } from './components/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './components/register/register.component';
-import { MatIconModule } from '@angular/material/icon';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserRoutingModule } from "./user-routing.module";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     NgxMatFileInputModule,
     MatSelectModule,
     MatOptionModule,
+    UserRoutingModule
   ],
 })
 export class UserModule {}

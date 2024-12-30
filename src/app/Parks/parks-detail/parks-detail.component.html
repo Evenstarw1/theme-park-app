@@ -2,7 +2,11 @@
     <div *ngIf="parkDetail$ | async as parkDetail">
         <div class="basic-info-container">
             <div id="image">
-                <img [src]="parkDetail.picture ? parkDetail.picture : '../../../../assets/images/profile.png'" alt="{{ parkDetail.name }}" />
+                <img
+                    loading="lazy"
+                    [src]="parkDetail.picture ? parkDetail.picture : '../../../../assets/images/profile.png'"
+                    alt="{{ parkDetail.name }}"
+                />
             </div>
             <div class="basic-info-park">
                 <h1>{{ parkDetail.name }}</h1>

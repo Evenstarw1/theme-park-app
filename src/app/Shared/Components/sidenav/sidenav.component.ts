@@ -68,12 +68,12 @@ export class SidenavComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     register(): void {
-        this.router.navigateByUrl("register");
+        this.router.navigateByUrl("user/register");
         this.sidenavService.closeSidenav();
     }
 
     profile(): void {
-        this.router.navigateByUrl("profile");
+        this.router.navigateByUrl("user/profile");
         this.sidenavService.closeSidenav();
     }
 
@@ -90,7 +90,7 @@ export class SidenavComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     parksList(): void {
-        this.router.navigateByUrl("park-list");
+        this.router.navigateByUrl("park/list");
         this.sidenavService.closeSidenav();
     }
 
