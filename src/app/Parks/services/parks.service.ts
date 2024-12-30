@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { SharedService } from "src/app/Shared/Services/shared.service";
-import { ParkDetailDTO, ParksDTO } from "../models/parks.dto";
+import { ParkCreateUpdateDTO, ParkDetailDTO, ParksDTO } from "../models/parks.dto";
 
 @Injectable({
     providedIn: "root",
@@ -27,5 +27,17 @@ export class ParksService {
         return this.http
             .post(`${this.urlParkFinderApi}/priv/park/comments`, { themepark_id: Number(parkId), comment })
             .pipe(catchError(this.sharedService.handleError));
+    }
+
+    deletePark(parkId: string): Observable<any> {
+        return this.http.delete(`${this.urlParkFinderApi}priv/park/${parkId}`).pipe(catchError(this.sharedService.handleError));
+    }
+
+    updatePark(parkId: string, park: ParkCreateUpdateDTO): Observable<any> {
+        return this.http.patch(`${this.urlParkFinderApi}priv/park/${parkId}`, park).pipe(catchError(this.sharedService.handleError));
+    }
+
+    addPark(park: ParkCreateUpdateDTO): Observable<any> {
+        return this.http.post(`${this.urlParkFinderApi}priv/parks`, park).pipe(catchError(this.sharedService.handleError));
     }
 }

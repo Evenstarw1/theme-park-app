@@ -4,6 +4,7 @@ import { AdminGuard } from "../Shared/Guards/admin.guard";
 import { AdminCategoriesComponent } from "./components/admin-categories/admin-categories.component";
 import { AdminHomeComponent } from "./components/admin-home/admin-home.component";
 import { AdminParksComponent } from "./components/admin-parks/admin-parks.component";
+import { ParkFormComponent } from "./components/park-form/park-form.component";
 import { UsersListComponent } from "./components/users-list/users-list.component";
 
 const routes: Routes = [
@@ -20,6 +21,11 @@ const routes: Routes = [
     {
         path: "parks",
         component: AdminParksComponent,
+        canActivate: [AdminGuard],
+    },
+    {
+        path: "park-form/:id",
+        component: ParkFormComponent,
         canActivate: [AdminGuard],
     },
     {

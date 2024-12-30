@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, exhaustMap, map } from "rxjs/operators";
+import { catchError, exhaustMap, finalize, map } from "rxjs/operators";
 import { SharedService } from "src/app/Shared/Services/shared.service";
 import * as ParksActions from "../actions";
 import { ParkDetailDTO, ParksDTO } from "../models/parks.dto";
@@ -111,6 +111,61 @@ export class ParksEffects {
                     catchError((error) => {
                         this.sharedService.managementSnackBar("Error al agregar el comentario", false);
                         return of(ParksActions.addParkCommentFailure({ payload: error }));
+                    })
+                )
+            )
+        )
+    );
+    deletePark$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ParksActions.deletePark),
+            exhaustMap(({ parkId }) =>
+                this.parksService.deletePark(parkId).pipe(
+                    map(() => ParksActions.deleteParkSuccess({ parkId: parseInt(parkId, 10) })), // Convierte parkId a número aquí
+                    catchError((error) => of(ParksActions.deleteParkFailure({ payload: error })))
+                )
+            )
+        )
+    );
+    addPark$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ParksActions.addPark),
+            exhaustMap(({ park }) =>
+                this.parksService.addPark(park).pipe(
+                    map(() => {
+                        this.sharedService.managementSnackBar("Parque añadido exitosamente", true);
+                        return ParksActions.addParkSuccess({ park });
+                    }),
+                    catchError((error) => {
+                        this.sharedService.managementSnackBar("Error al añadir parque", false);
+                        return of(ParksActions.addParkFailure({ payload: error }));
+                    }),
+                    finalize(() => {
+                        if (this.responseOK) {
+                            this.router.navigateByUrl("/admin/parks");
+                        }
+                    })
+                )
+            )
+        )
+    );
+    updatePark$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ParksActions.updatePark),
+            exhaustMap(({ parkId, park }) =>
+                this.parksService.updatePark(parkId, park).pipe(
+                    map(() => {
+                        this.sharedService.managementSnackBar("Parque actualizado exitosamente", true);
+                        return ParksActions.updateParkSuccess({ parkId, park });
+                    }),
+                    catchError((error) => {
+                        this.sharedService.managementSnackBar("Error al actualizar parque", false);
+                        return of(ParksActions.updateParkFailure({ payload: error }));
+                    }),
+                    finalize(() => {
+                        if (this.responseOK) {
+                            this.router.navigateByUrl("/admin/parks");
+                        }
                     })
                 )
             )

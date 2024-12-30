@@ -1,9 +1,9 @@
 export class ParksDTO {
-    id: string;
+    id: number;
     name: string;
     picture: string;
 
-    constructor(id: string, name: string, picture: string) {
+    constructor(id: number, name: string, picture: string) {
         this.id = id;
         this.name = name;
         this.picture = picture;
@@ -63,4 +63,14 @@ export interface Attraction {
     themepark_id: number;
     name: string;
     created: string;
+}
+
+export interface ParkCreateUpdateDTO {
+    id?: number;
+    name: string;
+    description: string;
+    picture: string;
+    latitude: number;
+    longitude: number;
+    categories: number[];
 }

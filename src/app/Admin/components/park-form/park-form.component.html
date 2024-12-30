@@ -1,0 +1,47 @@
+<div class="container body-container">
+    <h1>Parque</h1>
+    <form [formGroup]="parkForm" (ngSubmit)="savePark()" class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label for="name">Nombre del parque: </mat-label>
+            <input matInput type="text" [formControl]="name" />
+            <mat-error class="error" *ngIf="name.touched && name.hasError('required')">Debes añadir un nombre para este parque</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripción:</mat-label>
+            <textarea matInput placeholder="Añadir descripción del parque" [formControl]="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Imagen parque:</mat-label>
+            <input matInput placeholder="Añadir URL de la imagen aquí" [formControl]="picture" />
+            <mat-icon matSuffix>link</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="latitude">Latitud: </mat-label>
+            <input matInput type="number" [formControl]="latitude" />
+            <mat-error *ngIf="latitude.touched && latitude.hasError('pattern')"> La latitud debe ser un número válido. </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="longitude">Longitud: </mat-label>
+            <input matInput type="number" [formControl]="longitude" />
+            <mat-error *ngIf="longitude.touched && longitude.hasError('pattern')"> La longitud debe ser un número válido. </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Categorías</mat-label>
+            <mat-select [formControl]="categories" multiple>
+                <mat-select-trigger>
+                    {{ categoriesDisplayText }}
+                </mat-select-trigger>
+                <mat-option *ngFor="let category of categoryList" [value]="category.id">
+                    {{ category.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </form>
+</div>
