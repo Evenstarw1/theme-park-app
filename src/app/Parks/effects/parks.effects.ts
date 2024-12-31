@@ -116,6 +116,16 @@ export class ParksEffects {
             )
         )
     );
+
+    addParkCommentSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ParksActions.addParkCommentSuccess),
+            map((action) => {
+                return ParksActions.getParkDetail({ parkId: action.parkId });
+            })
+        )
+    );
+
     deletePark$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ParksActions.deletePark),

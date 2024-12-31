@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { AppState } from "src/app/app.reducers";
@@ -13,11 +14,15 @@ import { UserDTO } from "src/app/User/models/user.dto";
 export class UsersListComponent implements OnInit {
     users$: Observable<UserDTO[]>;
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>, private router: Router) {
         this.users$ = this.store.select((state) => state.user.users);
     }
 
     ngOnInit(): void {
         this.store.dispatch(UserActions.getAllUsers());
+    }
+
+    backToAdmin(): void {
+        this.router.navigate(["admin/home"]);
     }
 }

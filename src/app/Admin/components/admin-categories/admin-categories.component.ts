@@ -31,7 +31,7 @@ export class AdminCategoriesComponent implements OnInit {
     loadCategories(): void {
         this.categoriesService.getCategories().subscribe(
             (categories) => {
-                this.categoryList.data = categories;
+                this.categoryList.data = categories.filter((category) => category != null);
             },
             (err) => {
                 console.error("Error fetching categories:", err);
@@ -50,8 +50,8 @@ export class AdminCategoriesComponent implements OnInit {
 
         this.categoriesService.addCategories(newCategory).subscribe(
             (addedCategory) => {
-                console.log("Categoría añadida:", addedCategory);
                 this.categoryList.data = [...this.categoryList.data, addedCategory];
+                this.loadCategories();
                 this.showCategoryForm = false;
                 this.categoryForm.reset();
             },
@@ -64,5 +64,9 @@ export class AdminCategoriesComponent implements OnInit {
     cancelAddCategory(): void {
         this.showCategoryForm = false;
         this.categoryForm.reset();
+    }
+
+    backToAdmin(): void {
+        this.router.navigate(["admin/home"]);
     }
 }

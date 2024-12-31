@@ -1,53 +1,54 @@
 <div class="container body-container">
     <h1>Edita tu perfil</h1>
     <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()" class="form-container">
-  
-      <mat-form-field appearance="fill">
-        <mat-label for="name">Username: </mat-label>
-        <input matInput type="text" [formControl]="name" />
-        <mat-error *ngIf="name.touched && name.hasError('required')">Debes añadir un username</mat-error>
-        <mat-error *ngIf="name.touched && name.hasError('minlength')">El username debe ser de al menos 5
-          caracteres.</mat-error>
-        <mat-error *ngIf="name.touched && name.hasError('maxlength')">El username debe ser con un máximo 25
-          caracteres.</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label for="name">Username: </mat-label>
+            <input matInput type="text" [formControl]="name" />
+            <mat-error *ngIf="name.touched && name.hasError('required')">Debes añadir un username</mat-error>
+            <mat-error *ngIf="name.touched && name.hasError('minlength')">El username debe ser de al menos 5 caracteres.</mat-error>
+            <mat-error *ngIf="name.touched && name.hasError('maxlength')">El username debe ser con un máximo 25 caracteres.</mat-error>
+        </mat-form-field>
 
-      <div class="small-info-inputs">
-        <mat-form-field appearance="fill">
-          <mat-label for="birthDate">Fecha de nacimiento: </mat-label>
-          <input matInput type="date" [formControl]="birth_date" />
-          <mat-icon matSuffix>calendar_today</mat-icon>
+        <div class="small-info-inputs">
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de nacimiento:</mat-label>
+                <input matInput [matDatepicker]="picker" [formControl]="birth_date" placeholder="Selecciona tu fecha de nacimiento" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="birth_date.touched && birth_date.invalid">
+                    <ng-container *ngIf="birth_date.hasError('required')"> La fecha de nacimiento es obligatoria. </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label for="city">Ciudad: </mat-label>
+                <input matInput type="text" [formControl]="city" />
+            </mat-form-field>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Imagen de perfil</mat-label>
+            <input matInput placeholder="Pega la URL de la imagen aquí" [formControl]="profile_picture" />
+            <mat-icon matSuffix>link</mat-icon>
         </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label for="city">Ciudad: </mat-label>
-          <input matInput type="text" [formControl]="city" />
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripción:</mat-label>
+            <textarea matInput placeholder="Añade una descripción sobre ti" [formControl]="description"></textarea>
         </mat-form-field>
-      </div>
-  
-      <mat-form-field>
-        <mat-label>Imagen de perfil</mat-label>
-        <input matInput placeholder="Pega la URL de la imagen aquí" [formControl]="profile_picture" />
-        <mat-icon matSuffix>link</mat-icon>
-      </mat-form-field>
-  
-      <mat-form-field class="example-full-width">
-        <mat-label>Descripción:</mat-label>
-        <textarea matInput placeholder="Añade una descripción sobre ti" [formControl]="description"></textarea>
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Categorías</mat-label>
-        <mat-select [formControl]="categories" multiple>
-          <mat-select-trigger>
-            {{ categoriesDisplayText }}
-          </mat-select-trigger>
-          <mat-option *ngFor="let category of categoryList" [value]="category.id">
-            {{ category.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <button mat-raised-button color="primary" type="submit">Modificar</button>
+
+        <mat-form-field>
+            <mat-label>Categorías</mat-label>
+            <mat-select [formControl]="categories" multiple>
+                <mat-select-trigger>
+                    {{ categoriesDisplayText }}
+                </mat-select-trigger>
+                <mat-option *ngFor="let category of categoryList" [value]="category.id">
+                    {{ category.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Modificar</button>
     </form>
-  </div>
+</div>

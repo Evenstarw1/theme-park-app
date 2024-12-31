@@ -28,8 +28,18 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label for="password">Contraseña: </mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Contraseña" />
+            <mat-label for="password">Contraseña:</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Contraseña" />
+            <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword"
+            >
+                <mat-icon>{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
             <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
                 <ng-container *ngIf="registerForm.get('password')?.hasError('required')"> La contraseña es obligatoria. </ng-container>
                 <ng-container *ngIf="registerForm.get('password')?.hasError('minlength')">
@@ -39,8 +49,18 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label for="confirmPassword">Confirmar Contraseña: </mat-label>
-            <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña" />
+            <mat-label for="confirmPassword">Confirmar Contraseña:</mat-label>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirmar Contraseña" />
+            <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hideConfirmPassword = !hideConfirmPassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hideConfirmPassword"
+            >
+                <mat-icon>{{ hideConfirmPassword ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
             <mat-error class="required-error" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
                 <ng-container *ngIf="registerForm.get('confirmPassword')?.hasError('required')"> Debes confirmar la contraseña. </ng-container>
             </mat-error>
@@ -49,9 +69,13 @@
 
         <div class="small-info-inputs">
             <mat-form-field appearance="fill">
-                <mat-label for="birthDate">Fecha de nacimiento: </mat-label>
-                <input matInput type="date" [formControl]="birth_date" />
-                <mat-icon matSuffix>calendar_today</mat-icon>
+                <mat-label>Fecha de nacimiento:</mat-label>
+                <input matInput [matDatepicker]="picker" [formControl]="birth_date" placeholder="Selecciona tu fecha de nacimiento" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="birth_date.touched && birth_date.invalid">
+                    <ng-container *ngIf="birth_date.hasError('required')"> La fecha de nacimiento es obligatoria. </ng-container>
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

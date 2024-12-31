@@ -22,5 +22,26 @@
                 <button mat-raised-button color="warn" type="button" *ngIf="profileUser.access_level === 1" (click)="navigateToAdmin()">Admin</button>
             </div>
         </div>
+
+        <!-- <div class="recommended-parks">
+            <h2>Parques recomendados</h2>
+            <button mat-raised-button color="primary" (click)="loadRecommendedParks()">
+                Mostrar parques recomendados
+            </button>
+        
+            <div *ngIf="recommendedParks$ | async as recommendedParks">
+                <div *ngIf="recommendedParks.length > 0; else noParks">
+                    <div class="park-list">
+                        <div class="park-item" *ngFor="let park of recommendedParks">
+                            <img [src]="park.picture" alt="{{ park.name }}" class="park-image" />
+                            <h3>{{ park.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noParks>
+                    <p>No hay parques recomendados según tus preferencias.</p>
+                </ng-template>
+            </div>
+        </div> -->
     </div>
 </div>

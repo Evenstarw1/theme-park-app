@@ -36,6 +36,9 @@ export class RegisterComponent implements OnInit {
     categories = new FormControl<number[]>([]);
     categoryList: CategoryDTO[] = [];
 
+    hidePassword = true;
+    hideConfirmPassword = true;
+
     get categoriesDisplayText(): string {
         const selectedCategoryIds = this.categories.value || [];
         if (!this.categoryList || this.categoryList.length === 0) {
@@ -142,7 +145,6 @@ export class RegisterComponent implements OnInit {
             access_level: 2,
         };
 
-        console.log(user, "user");
         this.store.dispatch(UserAction.register({ user }));
     }
 }

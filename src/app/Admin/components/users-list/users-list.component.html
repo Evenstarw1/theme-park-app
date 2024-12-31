@@ -5,4 +5,8 @@
             <li *ngFor="let user of users">{{ user.id }} {{ user.name }} - {{ user.email }} - {{ user.access_level }}</li>
         </ul>
     </div>
+
+    <button mat-mini-fab color="primary" (click)="backToAdmin()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 </div>

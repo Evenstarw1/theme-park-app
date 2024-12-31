@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducers";
 import * as ParksActions from "src/app/Parks/actions";
@@ -44,7 +44,8 @@ export class ParkFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private store: Store<AppState>,
         private route: ActivatedRoute,
-        private categoriesService: CategoriesService
+        private categoriesService: CategoriesService,
+        private router: Router
     ) {
         this.registerPark = {
             id: 0,
@@ -151,5 +152,9 @@ export class ParkFormComponent implements OnInit {
 
     updatePark(park: ParkCreateUpdateDTO): void {
         this.store.dispatch(ParksActions.updatePark({ parkId: this.parkId, park }));
+    }
+
+    backToAdminParks(): void {
+        this.router.navigate(["admin/parks"]);
     }
 }

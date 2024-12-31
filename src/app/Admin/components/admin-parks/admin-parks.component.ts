@@ -44,4 +44,8 @@ export class AdminParksComponent implements OnInit {
     deletePark(parkId: string): void {
         this.store.dispatch(ParksActions.deletePark({ parkId }));
     }
+
+    backToAdmin(): void {
+        this.router.navigate(["admin/home"]);
+    }
 }
