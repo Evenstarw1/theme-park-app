@@ -18,4 +18,8 @@ export class CategoriesService {
     getCategories(): Observable<CategoryDTO[]> {
         return this.http.get<CategoryDTO[]>(this.urlParkFinderApi + "pub/getCategories").pipe(catchError(this.sharedService.handleError));
     }
+
+    addCategories(category: CategoryDTO): Observable<CategoryDTO> {
+        return this.http.post<CategoryDTO>(this.urlParkFinderApi + "priv/categories", category).pipe(catchError(this.sharedService.handleError));
+    }
 }

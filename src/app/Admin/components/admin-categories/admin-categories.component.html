@@ -1,29 +1,38 @@
 <div class="body-container">
     <h2>Categorías</h2>
 
+    <div *ngIf="showCategoryForm" class="form-container">
+        <form [formGroup]="categoryForm" class="example-form" (ngSubmit)="addCategory()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Añade categoría</mat-label>
+                <input matInput placeholder="Nombre de la categoría" formControlName="name" />
+                <mat-error *ngIf="categoryForm.get('name')?.hasError('required')">El nombre es obligatorio</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancelAddCategory()">Cancelar</button>
+        </form>
+    </div>
+
     <table mat-table [dataSource]="categoryList" class="mat-elevation-z8">
-        <!-- Columna ID -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Categoria ID</th>
             <td mat-cell *matCellDef="let category">{{ category.id }}</td>
         </ng-container>
 
-        <!-- Columna Nombre -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Título</th>
             <td mat-cell *matCellDef="let category">{{ category.name }}</td>
         </ng-container>
 
-        <!-- Columna Acciones -->
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>
                 <button mat-mini-fab color="primary" (click)="createCategory()">
                     <mat-icon>add</mat-icon>
                 </button>
             </th>
+            <td mat-cell *matCellDef="let category"></td>
         </ng-container>
 
-        <!-- Filas -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let category; columns: displayedColumns"></tr>
     </table>
