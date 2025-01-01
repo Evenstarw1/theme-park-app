@@ -36,9 +36,16 @@
                 <mat-select-trigger>
                     {{ categoriesDisplayText }}
                 </mat-select-trigger>
-                <mat-option *ngFor="let category of categoryList" [value]="category.id">
-                    {{ category.name }}
-                </mat-option>
+
+                <ng-container *ngIf="categoriesLoaded; else loadingCategories">
+                    <mat-option *ngFor="let category of categoryList" [value]="category.id">
+                        {{ category.name }}
+                    </mat-option>
+                </ng-container>
+
+                <ng-template #loadingCategories>
+                    <mat-option disabled>Cargando categorías...</mat-option>
+                </ng-template>
             </mat-select>
         </mat-form-field>
 

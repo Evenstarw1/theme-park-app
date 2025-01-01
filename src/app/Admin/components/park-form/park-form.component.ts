@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { of } from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
 import { AppState } from "src/app/app.reducers";
 import * as ParksActions from "src/app/Parks/actions";
 import { ParkCreateUpdateDTO } from "src/app/Parks/models/parks.dto";
@@ -31,9 +33,15 @@ export class ParkFormComponent implements OnInit {
     parkForm: FormGroup;
 
     categoryList: CategoryDTO[] = [];
+    categoriesLoaded = false;
 
     get categoriesDisplayText(): string {
         const selectedCategoryIds = this.categories.value || [];
+
+        if (!this.categoriesLoaded || this.categoryList.length === 0) {
+            return "Loading categories...";
+        }
+
         const selectedCategoryNames = this.categoryList.filter((cat) => selectedCategoryIds.includes(cat.id)).map((cat) => cat.name);
 
         if (selectedCategoryNames.length === 0) return "No categories selected";
@@ -83,21 +91,34 @@ export class ParkFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params) => {
-            this.parkId = params.get("id") || "";
-            if (this.parkId) {
-                this.isUpdateMode = true;
-                this.store.dispatch(ParksActions.getParkDetail({ parkId: this.parkId }));
-            }
-        });
-        this.categoriesService.getCategories().subscribe(
-            (categories) => {
-                this.categoryList = categories;
-            },
-            (err) => {
-                console.error("Error fetching categories:", err);
-            }
-        );
+        this.route.paramMap
+            .pipe(
+                switchMap((params) => {
+                    this.parkId = params.get("id") || "";
+                    if (this.parkId) {
+                        this.isUpdateMode = true;
+                        this.store.dispatch(ParksActions.getParkDetail({ parkId: this.parkId }));
+                    }
+                    return this.categoriesService.getCategories().pipe(
+                        catchError((err) => {
+                            console.error("Error fetching categories:", err);
+                            return of([]);
+                        })
+                    );
+                })
+            )
+            .subscribe(
+                (categories) => {
+                    if (categories) {
+                        this.categoryList = categories;
+                        this.categoriesLoaded = true;
+                    }
+                },
+                (err) => {
+                    console.error("Error in ngOnInit:", err);
+                }
+            );
+
         this.store
             .select((state: any) => state.parks.parkDetail)
             .subscribe((park) => {
@@ -146,6 +167,7 @@ export class ParkFormComponent implements OnInit {
             this.createPark(park);
         }
     }
+
     createPark(park: ParkCreateUpdateDTO): void {
         this.store.dispatch(ParksActions.addPark({ park }));
     }

@@ -2,11 +2,13 @@ export class ParksDTO {
     id: number;
     name: string;
     picture: string;
+    categories: Category[];
 
-    constructor(id: number, name: string, picture: string) {
+    constructor(id: number, name: string, picture: string, categories: Category[]) {
         this.id = id;
         this.name = name;
         this.picture = picture;
+        this.categories = categories;
     }
 }
 

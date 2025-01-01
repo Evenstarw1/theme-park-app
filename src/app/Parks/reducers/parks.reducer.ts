@@ -90,13 +90,25 @@ const _parksReducer = createReducer(
         loaded: false,
         error: null,
     })),
-    on(ParksActions.addParkSuccess, (state, { park }) => ({
-        ...state,
-        parks: [...state.parks, { ...park, id: park.id || 0 }],
-        loading: false,
-        loaded: true,
-        error: null,
-    })),
+    on(ParksActions.addParkSuccess, (state, { park }) => {
+        const updatedPark = {
+            ...park,
+            id: park.id || 0,
+            categories: park.categories.map((categoryId) => ({
+                id: categoryId,
+                name: "",
+                created: "",
+            })),
+        };
+
+        return {
+            ...state,
+            parks: [...state.parks, updatedPark],
+            loading: false,
+            loaded: true,
+            error: null,
+        };
+    }),
     on(ParksActions.addParkFailure, (state, { payload }) => ({
         ...state,
         loading: false,
@@ -111,13 +123,25 @@ const _parksReducer = createReducer(
         loaded: false,
         error: null,
     })),
-    on(ParksActions.updateParkSuccess, (state, { parkId, park }) => ({
-        ...state,
-        parks: state.parks.map((p) => (p.id === parseInt(parkId, 10) ? { ...p, ...park } : p)),
-        loading: false,
-        loaded: true,
-        error: null,
-    })),
+    on(ParksActions.updateParkSuccess, (state, { parkId, park }) => {
+        const updatedPark = {
+            ...park,
+            categories: park.categories.map((categoryId) => ({
+                id: categoryId,
+                name: "",
+                created: "",
+            })),
+        };
+
+        return {
+            ...state,
+            parks: state.parks.map((p) => (p.id === parseInt(parkId, 10) ? { ...p, ...updatedPark } : p)),
+            loading: false,
+            loaded: true,
+            error: null,
+        };
+    }),
+
     on(ParksActions.updateParkFailure, (state, { payload }) => ({
         ...state,
         loading: false,

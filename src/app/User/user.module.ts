@@ -9,6 +9,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
 import { EditProfileComponent } from "./components/edit-profile/edit-profile.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { RegisterComponent } from "./components/register/register.component";
@@ -29,6 +30,7 @@ import { UserRoutingModule } from "./user-routing.module";
         UserRoutingModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatTableModule,
     ],
 })
 export class UserModule {}
