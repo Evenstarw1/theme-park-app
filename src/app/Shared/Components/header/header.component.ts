@@ -40,12 +40,6 @@ export class HeaderComponent {
         this.sidenavService.toggleSidenav(type);
     }
 
-    // Añadir la lógica de búsqueda cuando esté implementado la parte de parques
-    // performSearch(): void {
-    //   console.log('Performing search for:', this.searchQuery);
-    //
-    // }
-
     onSearch(event: Event): void {
         const input = event.target as HTMLInputElement;
         this.searchQuery = input.value;

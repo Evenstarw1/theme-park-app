@@ -9,6 +9,8 @@ img {
     width: 500px;
     height: 400px;
     object-fit: cover;
+    border-radius: 25px;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
 .park-categories {
@@ -49,7 +51,8 @@ img {
     width: 500px;
 }
 .park-comments mat-list {
-    background-color: rgba(91, 121, 205, 0.2);
+    background-color: $blue-background-color;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     padding-bottom: 20px;
 }

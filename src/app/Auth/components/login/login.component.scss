@@ -1,6 +1,7 @@
-@import '../../../../mediaqueries.scss';
+@import "../../../../mediaqueries.scss";
+@import "../../../../variables.scss";
 
-.body-container{
+.body-container {
     padding-top: 120px;
 }
 
@@ -11,7 +12,8 @@
 }
 
 .form-container {
-    background-color: rgba(91, 121, 205, 0.2);
+    background-color: $blue-background-color;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
     padding: 25px;
     border-radius: 45px;
     width: 80vw;
@@ -36,9 +38,8 @@ mat-form-field {
     flex: 1;
 }
 
-
 .error {
-    color: #EE0004
+    color: #ee0004;
 }
 
 .container,
@@ -73,11 +74,15 @@ mat-form-field {
     }
 }
 
+.register-link {
+    padding-top: 20px;
+}
+
 @include for-mobile {
     mat-form-field {
         width: 75vw;
         max-width: 320px;
-    
+
         mat-label {
             font-size: 14px;
         }

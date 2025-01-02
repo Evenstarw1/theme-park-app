@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import { Observable, combineLatest } from "rxjs";
 import { AppState } from "src/app/app.reducers";
 import * as AuthAction from "../../../Auth/actions";
-import * as ParksAction from "../../../Parks/actions"; // Importar las acciones de parques
+import * as ParksAction from "../../../Parks/actions";
 import { ParksDTO } from "../../../Parks/models/parks.dto";
 import * as UserAction from "../../actions";
 import { UserDTO } from "../../models/user.dto";
@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
         combineLatest([this.profileUser$, this.parks$]).subscribe(([user, parks]) => {
             if (user && user.categories) {
                 const userCategoryIds = user.categories.map(String);
-                console.log(userCategoryIds, "userCategoryIds");
 
                 this.recommendedParks = parks.filter((park) => park.categories.some((category) => userCategoryIds.includes(String(category.id))));
             }

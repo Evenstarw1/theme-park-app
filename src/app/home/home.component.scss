@@ -1,4 +1,8 @@
-@import '../../mediaqueries.scss';
+@import "../../mediaqueries.scss";
+
+.body-container {
+    padding-top: 80px;
+}
 
 .carousel-container {
     max-width: 100%;
@@ -6,41 +10,43 @@
 }
 
 @include for-mobile {
-  .carousel-container {
-    padding-top: 80px;
-  }
+    .carousel-container {
+        padding-top: 80px;
+    }
 }
 
 .landing-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    text-align: center;
 }
 
 .parks-info-container {
-  padding-top: 25px;
+    padding-top: 25px;
 }
 
 .info-container {
-  display: flex;
-  flex-direction: row;
-  gap: 65px;
-
-  img {
-    width: 150px;
-  }
-}
-
-
-  @include for-mobile {
-  .info-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 65px;
 
     img {
-      width: 100px;
+        width: 150px;
     }
-  }
+}
+
+@include for-mobile {
+    .body-container {
+        padding-top: 0;
+    }
+    .info-container {
+        display: flex;
+        flex-direction: column;
+
+        img {
+            width: 100px;
+        }
+    }
 }

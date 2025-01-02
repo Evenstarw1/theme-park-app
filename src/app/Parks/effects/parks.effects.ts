@@ -131,7 +131,7 @@ export class ParksEffects {
             ofType(ParksActions.deletePark),
             exhaustMap(({ parkId }) =>
                 this.parksService.deletePark(parkId).pipe(
-                    map(() => ParksActions.deleteParkSuccess({ parkId: parseInt(parkId, 10) })), // Convierte parkId a número aquí
+                    map(() => ParksActions.deleteParkSuccess({ parkId: parseInt(parkId, 10) })),
                     catchError((error) => of(ParksActions.deleteParkFailure({ payload: error })))
                 )
             )

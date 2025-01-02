@@ -13,6 +13,7 @@ import { UserDTO } from "src/app/User/models/user.dto";
 })
 export class UsersListComponent implements OnInit {
     users$: Observable<UserDTO[]>;
+    displayedColumns: string[] = ["id", "name", "email", "access_level"];
 
     constructor(private store: Store<AppState>, private router: Router) {
         this.users$ = this.store.select((state) => state.user.users);

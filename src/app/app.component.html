@@ -1,8 +1,8 @@
 <app-header (sidenavToggle)="toggleSidenav()"></app-header>
-<div class="loading" *ngIf="loading">
-    <mat-spinner></mat-spinner>
-  </div>
 <div class="content-wrapper">
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
     <app-sidenav [sidenavOpen]="sidenavOpen" (sidenavClosed)="onSidenavClosed()"></app-sidenav>
     <router-outlet></router-outlet>
 </div>

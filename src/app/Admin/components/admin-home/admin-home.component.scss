@@ -1,3 +1,18 @@
+@import "../../../../mediaqueries.scss";
+
 .body-container {
     padding: 120px 40px;
+}
+
+.admin-container {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+@include for-mobile {
+    .admin-container {
+        flex-direction: column;
+        gap: 30px;
+    }
 }

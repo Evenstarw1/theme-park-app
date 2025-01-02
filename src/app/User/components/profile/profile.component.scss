@@ -14,7 +14,8 @@
 }
 
 .personal-info-container {
-    background-color: rgba(91, 121, 205, 0.2);
+    background-color: $blue-background-color;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
     padding: 25px;
     border-radius: 45px;
     width: 80vw;
@@ -57,6 +58,10 @@
     width: 120px;
     height: 75px;
     object-fit: cover;
+}
+
+.recommended-parks-container {
+    width: 100%;
 }
 
 @include for-mobile {
