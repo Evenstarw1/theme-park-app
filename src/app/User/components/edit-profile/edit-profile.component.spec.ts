@@ -1,5 +1,13 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatNativeDateModule, MatOptionModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { StoreModule } from "@ngrx/store";
 import { MockStore, provideMockStore } from "@ngrx/store/testing";
 import { of } from "rxjs";
@@ -32,7 +40,19 @@ describe("EditProfileComponent", () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ReactiveFormsModule, StoreModule.forRoot({})],
+            imports: [
+                ReactiveFormsModule,
+                MatFormFieldModule,
+                MatDatepickerModule,
+                MatIconModule,
+                MatInputModule,
+                MatSelectModule,
+                MatNativeDateModule,
+                MatButtonModule,
+                MatOptionModule,
+                NoopAnimationsModule,
+                StoreModule.forRoot({}),
+            ],
             declarations: [EditProfileComponent],
             providers: [provideMockStore({ initialState }), { provide: CategoriesService, useClass: MockCategoriesService }],
         }).compileComponents();
@@ -76,7 +96,7 @@ describe("EditProfileComponent", () => {
             city: "New City",
             profile_picture: "new_picture_url",
             description: "Updated description",
-            categories: [1],
+            categories: ["1"],
         });
 
         component.editProfile();
@@ -90,7 +110,7 @@ describe("EditProfileComponent", () => {
             city: "New City",
             profile_picture: "new_picture_url",
             description: "Updated description",
-            categories: [1],
+            categories: ["1"],
             access_level: 2,
         };
 
