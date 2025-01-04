@@ -24,7 +24,6 @@ export class AuthInterceptorService implements HttpInterceptor {
         const isExcluded = excludedUrls.some((url) => req.url.includes(url));
 
         if (isExcluded) {
-            console.log("Excluded from token:", req.url);
             return next.handle(req);
         }
 

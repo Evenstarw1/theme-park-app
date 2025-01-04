@@ -39,10 +39,4 @@ export class HeaderComponent {
     openSidenav(type: "menu" | "account"): void {
         this.sidenavService.toggleSidenav(type);
     }
-
-    onSearch(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        this.searchQuery = input.value;
-        console.log("Search query:", this.searchQuery);
-    }
 }
