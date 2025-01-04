@@ -21,6 +21,6 @@ export class CategoriesService {
     }
 
     addCategories(category: CategoryDTO): Observable<CategoryDTO> {
-        return this.http.post<CategoryDTO>(this.urlParkFinderApi + "priv/categories", category).pipe(catchError(this.sharedService.handleError));
+        return this.http.post<CategoryDTO>(this.urlParkFinderApi + "/priv/categories", category).pipe(catchError(this.sharedService.handleError));
     }
 }
