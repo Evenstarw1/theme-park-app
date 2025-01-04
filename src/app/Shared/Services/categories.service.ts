@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { CategoryDTO } from "src/app/Shared/Models/categories.dto";
 import { SharedService } from "src/app/Shared/Services/shared.service";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
@@ -12,7 +13,7 @@ export class CategoriesService {
     private urlParkFinderApi: string;
 
     constructor(private http: HttpClient, private sharedService: SharedService) {
-        this.urlParkFinderApi = "/api/";
+        this.urlParkFinderApi = environment.apiUrl;
     }
 
     getCategories(): Observable<CategoryDTO[]> {
