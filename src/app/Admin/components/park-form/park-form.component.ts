@@ -95,10 +95,12 @@ export class ParkFormComponent implements OnInit {
             .pipe(
                 switchMap((params) => {
                     this.parkId = params.get("id") || "";
-                    if (this.parkId) {
-                        this.isUpdateMode = true;
+                    this.isUpdateMode = !!this.parkId;
+
+                    if (this.isUpdateMode) {
                         this.store.dispatch(ParksActions.getParkDetail({ parkId: this.parkId }));
                     }
+
                     return this.categoriesService.getCategories().pipe(
                         catchError((err) => {
                             console.error("Error fetching categories:", err);
@@ -119,21 +121,24 @@ export class ParkFormComponent implements OnInit {
                 }
             );
 
-        this.store
-            .select((state: any) => state.parks.parkDetail)
-            .subscribe((park) => {
-                if (park) {
-                    this.parkForm.patchValue({
-                        name: park.name,
-                        description: park.description,
-                        picture: park.picture,
-                        latitude: park.latitude,
-                        longitude: park.longitude,
-                        categories: park.categories,
-                    });
-                    this.parkId = park.id;
-                }
-            });
+        if (this.isUpdateMode) {
+            this.store
+                .select((state: any) => state.parks.parkDetail)
+                .subscribe((park) => {
+                    if (park && this.isUpdateMode) {
+                        this.parkForm.patchValue({
+                            name: park.name,
+                            description: park.description,
+                            picture: park.picture,
+                            latitude: park.latitude,
+                            longitude: park.longitude,
+                            categories: park.categories,
+                        });
+                    }
+                });
+        } else {
+            this.parkForm.reset();
+        }
     }
 
     savePark(): void {
