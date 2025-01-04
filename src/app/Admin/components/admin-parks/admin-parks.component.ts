@@ -19,7 +19,9 @@ export class AdminParksComponent implements OnInit {
     constructor(private store: Store<ParksState>, private router: Router) {
         const selectParksList = createSelector(
             (state: any) => state.parks,
-            (state: ParksState) => state.parks
+            (state: ParksState) => {
+                return state.parks.slice().sort((a, b) => a.id - b.id);
+            }
         );
 
         this.parks$ = this.store.select(selectParksList);
