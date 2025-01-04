@@ -1,5 +1,3 @@
-import * as UserAction from "../../actions";
-
 import { formatDate } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
@@ -8,6 +6,7 @@ import { AppState } from "src/app/app.reducers";
 import { CategoryDTO } from "src/app/Shared/Models/categories.dto";
 import { CategoriesService } from "src/app/Shared/Services/categories.service";
 import { CustomValidators } from "../../../Shared/custom-validators";
+import * as UserAction from "../../actions";
 import { UserDTO } from "../../models/user.dto";
 
 @Component({
