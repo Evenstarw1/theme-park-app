@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import './variables.scss';
-@import './mediaqueries.scss';
+@import "./variables.scss";
+@import "./mediaqueries.scss";
 
-html, 
-body { 
-    height: 100%; 
+html,
+body {
+    height: 100%;
 }
-body { 
-    margin: 0; 
+body {
+    margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -15,9 +15,15 @@ h1 {
     font-size: $font-size-h1;
 }
 
+h1,
+h2,
+h3 {
+    color: $purple-primary-color;
+}
+
 .mdc-button__label {
- color: white;
- font-size: $font-size-body;
+    color: white;
+    font-size: $font-size-body;
 }
 
 .body-container-title {
@@ -34,5 +40,11 @@ footer {
 .content-wrapper {
     padding-bottom: 230px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
