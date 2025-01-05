@@ -45,9 +45,11 @@
                 <button mat-raised-button color="primary" (click)="openDialog()">Añade un comentario</button>
             </div>
 
-            <google-map [center]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }" [zoom]="15">
-                <map-marker [position]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }"></map-marker>
-            </google-map>
+            <div class="map-container">
+                <google-map [height]="mapHeight" [width]="mapWidth" [center]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }" [zoom]="15">
+                    <map-marker [position]="{ lat: parkDetail.latitude, lng: parkDetail.longitude }"></map-marker>
+                </google-map>
+            </div>
         </div>
     </div>
 </div>

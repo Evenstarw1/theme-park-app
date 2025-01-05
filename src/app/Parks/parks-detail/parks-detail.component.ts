@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
@@ -16,6 +16,8 @@ import { ParksState } from "../reducers/parks.reducer";
 export class ParksDetailComponent implements OnInit {
     parkId!: string;
     parkDetail$!: Observable<ParkDetailDTO | null>;
+    mapWidth: number = 500;
+    mapHeight: number = 500;
 
     constructor(private store: Store<ParksState>, private route: ActivatedRoute, public dialog: MatDialog) {}
 
@@ -26,6 +28,27 @@ export class ParksDetailComponent implements OnInit {
 
             this.parkDetail$ = this.store.select((state: any) => state.parks.parkDetail);
         });
+        this.updateMapSize();
+    }
+
+    @HostListener("window:resize", ["$event"])
+    onResize(): void {
+        this.updateMapSize();
+    }
+
+    private updateMapSize(): void {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth <= 480) {
+            this.mapWidth = 350;
+            this.mapHeight = 350;
+        } else if (screenWidth <= 820) {
+            this.mapWidth = 700;
+            this.mapHeight = 400;
+        } else {
+            this.mapWidth = 600;
+            this.mapHeight = 400;
+        }
     }
 
     private loadParkDetail(): void {
